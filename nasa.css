@@ -1,22 +1,4 @@
-html, body{
-    margin: 0;
-    padding: 0;
-}
 
-body{
-    
-    background-color:black;
-    text-align: center;
-    background-repeat: no-repeat;
-}
-
-.main{
-    height: 100vh;
-    width: 100vh;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-}
 
 
 @font-face{
@@ -24,14 +6,17 @@ body{
     src: url('./assets2/nasalization-rg.ttf');
 }
 
-.card{
-    border: none;
+.name{
     font-family: nasalization;
-
+    color: rgb(218, 100, 17);
+    text-align: center;
 }
+
 
 .jumbotron{
-  background: url('assets2/04_08_2014_space_bacon.jpg');
-  
+    background-image: url(assets2/planets.jpg);
+    background-size: 800px;
+    background-repeat: no-repeat;
+    background-color: black;
+    height: 600px;
 }
-    

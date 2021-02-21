@@ -1,37 +1,51 @@
-let baseURL = 'https://api.nasa.gov/planetary/apod';
 const key = 'gkcNtRPzeVcSBvGjQB6N85lOvqGc4a4YyaJ6aedR';
 
 
-const card = document.querySelector('.card');
-const cardBody = document.querySelector('.card-body');
-const moreInfoBtn = document.querySelector('.btn');
-const modalBody = document.querySelector('.modal-body');
-const modalTitle = document.querySelector('.modal-title');
 
 
-fetch(`${baseURL}?api_key=${key}`)
-  .then(response => response.json())
-  .then(json => displayImage(json));
+let searchButton = document.querySelector("#search")
 
-function displayImage(spaceObject) {
-    console.log(spaceObject);
+searchButton.addEventListener("click", ()=>{
+  console.log("button pressed")
+  sendApiRequest()
+})
 
-    let img = document.createElement('img');
-    img.className = 'card-img-top';
-    img.src = spaceObject.url;
-
-   let title = document.createElement('h1');
-   title.className = 'card-title';
-   title.innerText = spaceObject.title;
-   title.style = 'font-family: nasalization;';
-    
-   let date = document.createElement('p');
-   date.className = 'card-text';
-   date.innerText = spaceObject.date;
+async function sendApiRequest(){
+  let API_KEY = "gkcNtRPzeVcSBvGjQB6N85lOvqGc4a4YyaJ6aedR"
+  let response = await fetch(`https://api.nasa.gov/planetary/apod?api_key=${API_KEY}`);
+  console.log(response)
+  let data = await response.json()
+  console.log(data)
+  useApiData(data)
 }
-   
-   
-   
+
+
+function useApiData(data){
+  document.querySelector("#content").innerHTML += data.explanation
+  document.querySelector("#content").innerHTML += `<img src="${data.url}">`
+}
+
+
+
+
+
+
+// remember to see if i really need this in order for the api network to not stall 
+
+try {
+  // Create the performance observer.
+  const po = new PerformanceObserver((list) => {
+    for (const entry of list.getEntries()) {
+      // Logs all server timing data for this response
+      console.log('Server Timing', entry.serverTiming);
+    }
+  });
+  // Start listening for `navigation` entries to be dispatched.
+  po.observe({type: 'navigation', buffered: true});
+} catch (e) {
+  // Do nothing if the browser doesn't support this API.
+}
+
 
 
 
